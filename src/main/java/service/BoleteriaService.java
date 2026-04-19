@@ -9,9 +9,8 @@ public class BoleteriaService {
 	Scanner teclado = new Scanner(System.in);
 
 	public int numeroSilla(int numeroSilla) {
-
 		while (true){
-			System.out.print("Ingresa la opcion\n" +
+			System.out.printf("\nIngresa la opcion%n" +
 			                   "1.Asignar sillas\n" +
 			                   "2.Salir\n" +
 			                   "3.Respuesta: ");
@@ -19,16 +18,16 @@ public class BoleteriaService {
 
 			if(opcion == 1){
 				while (true) {
-					System.out.print("ingresa una opcion\n" +
+					System.out.print("\ningresa una opcion\n" +
 					                 "1.Ingresar cantidad de personas\n" +
 					                 "2.Salir\n" +
 					                 "3.Respuesta:");
 					int opcionDos = teclado.nextInt();
 					if (opcionDos == 1) {
-						System.out.print("Digite la cantidad de personas: ");
+						System.out.print("\nDigite la cantidad de personas: ");
 						int sillaAsignada = teclado.nextInt();
-						numeroSilla = numeroSilla - sillaAsignada;
-						System.out.printf("silla totales: %d%n", numeroSilla);
+						numeroSilla = (numeroSilla - sillaAsignada);
+						System.out.printf("silla asignadas: %d%n", numeroSilla);
 
 					} else if (opcionDos == 2) {
 						break;
@@ -40,15 +39,24 @@ public class BoleteriaService {
 		}
     }
 
+	public int asignarSillaPersona(boolean[] totalSilla){
+		for (int i = 0; i < totalSilla.length; i++) {
+			if (totalSilla[i] == false) {
+				totalSilla[i] = true;
+				return (i + 1);
+			}
+		}
+		return ( -1 );
+	}
+
 	public Date obtenerFecha(){
 		return new Date();
 	}
+
+
+
 }
-/*public void imprimir() {
-    Date miFecha = obtenerFecha();
-    // Usa %tF para el formato ISO (AAAA-MM-DD)
-    System.out.printf("La fecha es: %tF", miFecha);
-}*/
+
 
 /*%s: Para Strings (cadenas de texto).
 %d: Para números enteros (int, long).
