@@ -1,23 +1,17 @@
 package main;
 
+import model.Ticket;
 import service.BoleteriaService;
+import service.MostrarInfo;
 import service.PedirInfoService;
+
+import java.sql.Date;
 
 public class Main {
     public static void main(String[] args) {
 
-
-        PedirInfoService pedirInfo = new PedirInfoService();
-        BoleteriaService menu = new BoleteriaService();
-
-        //String nombreActividad = pedirInfo.pedirNombre();
-        int TotalSilla = pedirInfo.pedirNumeroSilla();
-
-        menu.numeroSilla(TotalSilla);
-
-
-
-
+        MostrarInfo mostrarInfo = new MostrarInfo();
+        mostrarInfo.mostrarInfoBoleta();
 
     }
 }
