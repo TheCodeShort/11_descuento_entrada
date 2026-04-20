@@ -1,6 +1,6 @@
 package service;
 
-import model.Ticket;
+import models.Ticket;
 
 public class MostrarInfo {
     // Instanciamos los objetos
@@ -10,10 +10,12 @@ public class MostrarInfo {
     // estos atributos mantienen el estado del programa
     private String nombreActividad;
     private int sillaDisponible;
+    private int cantidadPersona;
     private int contadorSerie = 1;
     private boolean[] mapaSillas; //cantidad de sillas
-    private double precioBoleta;
-    private double descuentoBoleta;
+    private double valorBoleta;
+    private double boletaPrecio;
+
     public int getSillaDisponible() {
         return sillaDisponible;
     }// muestra la cantidad de sillas
@@ -21,22 +23,25 @@ public class MostrarInfo {
     // metodo para configurar el evento al iniciar el programa
     public void inicializarEvento(){
         this.nombreActividad = pedirInfo.pedirNombre();
-        this.precioBoleta = pedirInfo.precioBoleta();
         this.sillaDisponible = pedirInfo.pedirNumeroSilla();
+        this.valorBoleta = pedirInfo.valorBoleta();
         this.mapaSillas = new  boolean[this.sillaDisponible];
+
 
     }
 
     // Metodo principal para vender y mostrar recibo
     public void realizarVenta(){
+        this.cantidadPersona = pedirInfo.totalPersonas();
         int sillasAnterior = this.sillaDisponible;
-        this.sillaDisponible = menu.numeroSilla(this.sillaDisponible);
+        this.sillaDisponible = menu.numeroSilla(this.sillaDisponible, this.cantidadPersona);
+        this.boletaPrecio = menu.precioBoleta(this.cantidadPersona, this.valorBoleta);
+
         int cantidadComprada = sillasAnterior - sillaDisponible;
 
         if (0 < cantidadComprada){
             for (int i = 0; i < cantidadComprada; i++){
                 int sillaAsignada = menu.asignarSillaPersona(this.mapaSillas);
-
                 if (sillaAsignada != -1){
                     imprimirTicket(sillaAsignada);
                 }else{
@@ -50,7 +55,7 @@ public class MostrarInfo {
 
     public void imprimirTicket (int numeroDeSilla){
         Ticket ticket = new Ticket(
-                this.precioBoleta,
+                this.boletaPrecio,
                 this.nombreActividad,
                 menu.obtenerFecha(),
                 numeroDeSilla,

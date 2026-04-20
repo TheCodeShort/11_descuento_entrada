@@ -6,27 +6,11 @@ import java.util.Scanner;
 public class BoleteriaService {
 	Scanner teclado = new Scanner(System.in);
 
-	public int numeroSilla(int numeroSilla) {
-		while (true){
-			System.out.printf("\nIngresa la opcion%n" +
-			                   "1.Asignar sillas\n" +
-			                   "2.Salir\n" +
-			                   "3.Respuesta: ");
-			int opcion = teclado.nextInt();
-
-			if(opcion == 1){
-				System.out.print("\nIngresar cantidad de personas: ");
-				int totalPersonas = teclado.nextInt();
-
-				numeroSilla = (numeroSilla - totalPersonas);
-				if (numeroSilla != -1){
-					System.out.printf("Sillas restantes: %d%n", numeroSilla);
-				}return numeroSilla;
-
-			}else if (opcion == 2) {
-			return numeroSilla;
-			}
-		}
+	public int numeroSilla(int numeroSilla, int totalPersona) {
+		numeroSilla = (numeroSilla - totalPersona);
+		if (numeroSilla != -1){
+			System.out.printf("\nSillas restantes: %d%n", numeroSilla);
+		}return numeroSilla;
 	}
 
 	public int asignarSillaPersona(boolean[] totalSilla){
@@ -37,6 +21,27 @@ public class BoleteriaService {
 			}
 		}
 		return ( -1 );
+	}
+
+
+	public double precioBoleta(int cantidadBoleta, double costoBoleta){
+		double porcentaje = 0;
+		if(cantidadBoleta == 1) {
+			System.out.println("No se aplica descuento");
+			return costoBoleta;
+		}else if (cantidadBoleta == 2){
+			porcentaje = 0.10;
+		} else if (cantidadBoleta == 3) {
+			porcentaje = 0.15;
+		} else if (cantidadBoleta == 4) {
+			porcentaje = 0.20;
+
+		}
+		double descuento = costoBoleta * porcentaje;
+		double precioFinal = costoBoleta - descuento;
+		System.out.println("Se aplica descuento de: $" + descuento);
+
+		return precioFinal;
 	}
 
 
