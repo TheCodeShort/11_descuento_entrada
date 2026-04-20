@@ -1,47 +1,40 @@
 package service;
 
+import models.Evento;
 import models.Ticket;
 
-public class MostrarInfo {
-    // Instanciamos los objetos
-    private PedirInfoService pedirInfo = new PedirInfoService();
+public class GestionBoletaService {
+    private InputService pedirInfo = new InputService();
     private BoleteriaService menu = new BoleteriaService();
+    private Evento evento;
 
-    // estos atributos mantienen el estado del programa
-    private String nombreActividad;
-    private int sillaDisponible;
     private int cantidadPersona;
-    private int contadorSerie = 1;
-    private boolean[] mapaSillas; //cantidad de sillas
-    private double valorBoleta;
     private double boletaPrecio;
 
     public int getSillaDisponible() {
-        return sillaDisponible;
-    }// muestra la cantidad de sillas
-
-    // metodo para configurar el evento al iniciar el programa
-    public void inicializarEvento(){
-        this.nombreActividad = pedirInfo.pedirNombre();
-        this.sillaDisponible = pedirInfo.pedirNumeroSilla();
-        this.valorBoleta = pedirInfo.valorBoleta();
-        this.mapaSillas = new  boolean[this.sillaDisponible];
-
-
+        // operador ternario
+        return (evento != null) ? evento.getSillaDisponible() : 0;
     }
 
-    // Metodo principal para vender y mostrar recibo
+    public void inicializarEvento(){
+        String nombre = pedirInfo.pedirNombre();
+        int sillas = pedirInfo.pedirNumeroSilla();
+        double precio = pedirInfo.valorBoleta();
+        this.evento = new Evento(nombre, sillas, precio);
+    }
+
     public void realizarVenta(){
         this.cantidadPersona = pedirInfo.totalPersonas();
-        int sillasAnterior = this.sillaDisponible;
-        this.sillaDisponible = menu.numeroSilla(this.sillaDisponible, this.cantidadPersona);
-        this.boletaPrecio = menu.precioBoleta(this.cantidadPersona, this.valorBoleta);
+        int sillasAnterior = evento.getSillaDisponible();
+        int nuevasSillas = menu.numeroSilla(sillasAnterior, this.cantidadPersona);
+        this.boletaPrecio = menu.precioBoleta(this.cantidadPersona, evento.getPrecioBase());
 
-        int cantidadComprada = sillasAnterior - sillaDisponible;
+        int cantidadComprada = sillasAnterior - nuevasSillas;
 
         if (0 < cantidadComprada){
+            evento.setSillaDisponible(nuevasSillas);
             for (int i = 0; i < cantidadComprada; i++){
-                int sillaAsignada = menu.asignarSillaPersona(this.mapaSillas);
+                int sillaAsignada = menu.asignarSillaPersona(evento.getMapaSillas());
                 if (sillaAsignada != -1){
                     imprimirTicket(sillaAsignada);
                 }else{
@@ -56,11 +49,13 @@ public class MostrarInfo {
     public void imprimirTicket (int numeroDeSilla){
         Ticket ticket = new Ticket(
                 this.boletaPrecio,
-                this.nombreActividad,
+                evento.getNombre(),
                 menu.obtenerFecha(),
                 numeroDeSilla,
-                contadorSerie++
+                evento.getContadorSerie()
         );
+        
+        evento.incrementarSerie();
 
         System.out.printf("""
                 ===============================
@@ -71,10 +66,8 @@ public class MostrarInfo {
                 Numero de serie No.%d %n
                 Precio %.2f %n
                 ===============================%n""",
-                ticket.getNombreEvento(),ticket.getFechaHora(),
-                ticket.getNumeroSilla(),ticket.getSerie(),
+                ticket.getNombreEvento(), ticket.getFechaHora(),
+                ticket.getNumeroSilla(), ticket.getSerie(),
                 ticket.getPrecio());
     }
-
-
 }

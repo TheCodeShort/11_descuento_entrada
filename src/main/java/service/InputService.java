@@ -2,7 +2,7 @@ package service;
 
 import java.util.Scanner;
 
-public class PedirInfoService {
+public class InputService {
 	Scanner teclado = new Scanner(System.in);
 
 	public String pedirNombre() {
@@ -19,7 +19,6 @@ public class PedirInfoService {
 		System.out.printf("Numero de sillas totales: %d%n", finalSilla);
 		return finalSilla;
 	}
-
 	public int totalPersonas() {
 
 		System.out.printf("\nIngresa la opcion%n" +
@@ -41,7 +40,6 @@ public class PedirInfoService {
 		}
 		return 0;
 	}
-
 	public double valorBoleta(){
 		System.out.print("Ingrece el precio de la Boleta: $");
 		double precioBoleta = teclado.nextDouble();

@@ -2,7 +2,7 @@ package models;
 
 import java.util.Date;
 
-public interface Informacion {
+public interface InfoBoleta {
 	String getNombreEvento();
 	Date getFechaHora();
 	int getNumeroSilla();

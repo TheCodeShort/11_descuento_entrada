@@ -1,7 +1,7 @@
 package models;
 import java.util.Date;
 
-public class Ticket implements Informacion{
+public class Ticket implements InfoBoleta {
 	private String nombreEvento;
 	private Date fehcaHora;
 	private int numeroSilla;

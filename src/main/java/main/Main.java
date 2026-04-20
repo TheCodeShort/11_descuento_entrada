@@ -1,13 +1,13 @@
 package main;
 
-import service.MostrarInfo;
+import service.GestionBoletaService;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        MostrarInfo sistema = new MostrarInfo();
+        GestionBoletaService sistema = new GestionBoletaService();
 
         // asigna el nombre y hace el conteo de las sillas
         sistema.inicializarEvento();

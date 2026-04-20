@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class BoleteriaService {
-	Scanner teclado = new Scanner(System.in);
 
+// para que si sea una clase de calculos no deberia mostar nada en pantalla solo retornar el resultado
 	public int numeroSilla(int numeroSilla, int totalPersona) {
 		numeroSilla = (numeroSilla - totalPersona);
 		if (numeroSilla != -1){
