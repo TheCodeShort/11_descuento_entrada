@@ -21,6 +21,11 @@ public class PedirInfoService {
 		return finalSilla;
 	}
 
+	public double precioBoleta(int cantidadBoleta){
+		System.out.print("Digite el valor de la voleta: $");
+		double valorBoleta = teclado.nextDouble();
+		return valorBoleta;
+	}
 
 
 }

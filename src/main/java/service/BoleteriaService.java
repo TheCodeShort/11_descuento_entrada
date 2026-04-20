@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class BoleteriaService {
-
-
 	Scanner teclado = new Scanner(System.in);
 
 	public int numeroSilla(int numeroSilla) {
@@ -17,27 +15,19 @@ public class BoleteriaService {
 			int opcion = teclado.nextInt();
 
 			if(opcion == 1){
-				while (true) {
-					System.out.print("\ningresa una opcion\n" +
-					                 "1.Ingresar cantidad de personas\n" +
-					                 "2.Salir\n" +
-					                 "3.Respuesta:");
-					int opcionDos = teclado.nextInt();
-					if (opcionDos == 1) {
-						System.out.print("\nDigite la cantidad de personas: ");
-						int sillaAsignada = teclado.nextInt();
-						numeroSilla = (numeroSilla - sillaAsignada);
-						System.out.printf("silla asignadas: %d%n", numeroSilla);
+				System.out.print("\nIngresar cantidad de personas: ");
+				int totalPersonas = teclado.nextInt();
 
-					} else if (opcionDos == 2) {
-						break;
-					}
-				}
-			} else if (opcion == 2) {
-				return numeroSilla;
+				numeroSilla = (numeroSilla - totalPersonas);
+				if (numeroSilla != -1){
+					System.out.printf("Sillas restantes: %d%n", numeroSilla);
+				}return numeroSilla;
+
+			}else if (opcion == 2) {
+			return numeroSilla;
 			}
 		}
-    }
+	}
 
 	public int asignarSillaPersona(boolean[] totalSilla){
 		for (int i = 0; i < totalSilla.length; i++) {
@@ -49,14 +39,12 @@ public class BoleteriaService {
 		return ( -1 );
 	}
 
+
 	public Date obtenerFecha(){
 		return new Date();
 	}
 
-
-
 }
-
 
 /*%s: Para Strings (cadenas de texto).
 %d: Para números enteros (int, long).
